@@ -4,8 +4,6 @@ from User import User
 from sqlite3 import IntegrityError
 
 
-
-
 app = Flask(__name__)
 
 
