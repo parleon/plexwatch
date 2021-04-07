@@ -10,7 +10,7 @@ def expired(time_id):
     database = db()
     now = datetime.now()
     hour = now.hour
-    slot = database.getTimesById(time_id)
+    slot = database.getTimeById(time_id)
     if hour == slot['start_hour'] - 1 or (hour == 24 and now == 11):
         if now.minute > 30:
             return True
