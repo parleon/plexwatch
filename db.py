@@ -74,3 +74,29 @@ class db:
               'VALUES (?,?,?)'
         self.connection.execute(sql, args)
         self.connection.commit()
+
+    def getUsers(self, arg=None):
+        if arg is None:
+            sql = 'SELECT * FROM users'
+        else:
+            sql = f'SELECT * FROM users WHERE time_id="{arg}"'
+        cursor = self.connection.cursor()
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        cursor.close()
+        self.connection.commit()
+
+        returning = []
+        for datum in data:
+            appendict = {
+                'user_id': datum[0],
+                'phone_number': datum[1],
+                'time_id': datum[2]
+            }
+            returning.append(appendict)
+        return returning
+
+    def popUserByTime(self, time_id):
+        sql = f'DELETE FROM users WHERE time_id={time_id}'
+        self.connection.execute(sql)
+        self.connection.commit()
