@@ -5,7 +5,7 @@ from twilio.rest import Client
 
 client = Client(config.account_sid, config.auth_token)
 
-
+# TODO: FIX
 def expired(time_id):
     database = db()
     now = datetime.now()
@@ -39,11 +39,11 @@ def checkNotify():
             now_available.append(user['time_id'])
     notifying = []
     for id_ in now_available:
-        if not expired(id_):
-            gotten = database.getUsers(id_)
-            for got in gotten:
-                if got['phone_number'] not in notifying:
-                    notifying.append(got['phone_number'])
+        #if not expired(id_):
+        gotten = database.getUsers(id_)
+        for got in gotten:
+            if got['phone_number'] not in notifying:
+                notifying.append(got['phone_number'])
         database.popUserByTime(id_)
     for each in notifying:
         mention(str(each), "Hello, this is PlexWatch! You can now sign up for your gym time.")
