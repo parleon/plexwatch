@@ -4,6 +4,6 @@ import refreshtime
 
 while True:
     notifier.checkNotify()
-    sleep(1)
+    sleep(5)
     refreshtime.timeRefresher()
-    sleep(59)
+    sleep(55)
