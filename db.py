@@ -24,7 +24,6 @@ class db:
                                 'availability INT, slots INT, start_hour INT, time_id INT UNIQUE)')
         self.connection.commit()
 
-
     def addSlot(self, slot):
         args = (slot.month, slot.day, slot.year, slot.time,
                 slot.available, slot.num_slots, slot.start_hour, slot.id)
@@ -62,6 +61,27 @@ class db:
             }
             returning.append(appendict)
         return returning
+
+    def getTimeById(self, time_id):
+        sql = f'SELECT * FROM times WHERE time_id={time_id}'
+        cursor = self.connection.cursor()
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        cursor.close()
+        self.connection.commit()
+
+        for datum in data:
+            appendict = {
+                'month': datum[0],
+                'day': datum[1],
+                'year': datum[2],
+                'time': datum[3],
+                'available': datum[4],
+                'slots': datum[5],
+                'start_hour': datum[6],
+                'id': datum[7]
+            }
+        return appendict
 
     def resetUsersTable(self):
         self.connection.execute('DROP TABLE users')
