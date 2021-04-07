@@ -1,7 +1,5 @@
-import asyncio
-
 from db import db
-from Scrape import Slot
+
 import config
 from twilio.rest import Client
 
@@ -15,29 +13,26 @@ def mention(to, body):
         print("failed to notify " + to)
 
 
-async def checkNotify(wait):
+def checkNotify():
     database = db()
-    while True:
-        print('Checking and Notifying')
-        users = database.getUsers()
-        times = database.getTimes()
-        time_id = []
-        for time in times:
-            time_id.append(time['id'])
-        now_available = []
-        for user in users:
-            if user['time_id'] not in time_id :
-                now_available.append(user['time_id'])
-        notifying = []
-        for id_ in now_available:
-            gotten = database.getUsers(id_)
-            for got in gotten:
-                if got['phone_number'] not in notifying:
-                    notifying.append(got['phone_number'])
-            database.popUserByTime(id_)
-        for each in notifying:
-            mention(str(each), "Hello, this is PlexWatch! You can now sign up for your gym time.")
+    print('Checking and Notifying')
+    users = database.getUsers()
+    times = database.getTimes()
+    time_id = []
+    for time in times:
+        time_id.append(time['id'])
+    now_available = []
+    for user in users:
+        if user['time_id'] not in time_id :
+            now_available.append(user['time_id'])
+    notifying = []
+    for id_ in now_available:
+        gotten = database.getUsers(id_)
+        for got in gotten:
+            if got['phone_number'] not in notifying:
+                notifying.append(got['phone_number'])
+        database.popUserByTime(id_)
+    for each in notifying:
+        mention(str(each), "Hello, this is PlexWatch! You can now sign up for your gym time.")
 
-        await asyncio.sleep(wait)
 
-asyncio.run(checkNotify(60))

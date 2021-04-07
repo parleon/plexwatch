@@ -1,1 +1,1 @@
-web: gunicorn Application:app & python refreshtime.py & python notifier.py & wait -n
+web: gunicorn Application:app & python backend.py & wait -n
