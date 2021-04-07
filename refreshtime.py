@@ -3,7 +3,7 @@ from Scrape import extractSlots
 from db import db
 
 
-async def timeRefresher():
+def timeRefresher():
     database = db()
     print('refreshing times')
     database.resetTimesTable()
