@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<body class="text-center">
+<main class="form-signin">
+    <div class="container-fluid col-xl-6 col-md-10 mb-4">
+
+<form action="" method="post">
+
+    <h3 class="h3 mb-3 fw-normal">enter your phone number to get notified when theres an open slot</h3>
+
+    <div class="form-floating">
+      <input type="phone_number" class="form-control" id="phone_number" name="phone_number" placeholder="xxx-xxx-xxxx">
+      <label for="phone_number"></label>
+    </div>
+
+    <div><button class="btn btn-lg btn-block btn-danger" type="submit">Get Notified</button></div>
+
+
+  </form>
+    </div>
+    </main>
+</body>
+
+{% endblock content %}
